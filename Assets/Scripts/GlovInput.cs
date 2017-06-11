@@ -24,7 +24,7 @@ public class GlovInput : MonoBehaviour
     private KeyCode[] keyMap = new KeyCode[5]
         { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F, KeyCode.G };  //엄지부터 a, s, d, f ,g;
 
-    //private static SerialPort sp = new SerialPort("COM5", 9600);
+    private static SerialPort sp;
 
     private void Awake()
     {
@@ -38,6 +38,9 @@ public class GlovInput : MonoBehaviour
             Destroy(gameObject);
         }
 
+
+        //sp = new SerialPort("COM5", 9600);
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -48,9 +51,19 @@ public class GlovInput : MonoBehaviour
             fingers[i] = FingerState.Straight;
         }
 
-        //if(!sp.IsOpen)
+        //try
         //{
-        //    sp.Open();
+        //    if (!sp.IsOpen)
+        //    {
+        //        sp.Open();
+        //    }
+        //}
+        //catch (System.InvalidOperationException e)
+        //{
+        //    Debug.Log("Failed to Open Serial Port");
+        //}
+        //catch (System.NullReferenceException e)
+        //{
         //}
     }
 
@@ -70,17 +83,20 @@ public class GlovInput : MonoBehaviour
         return fingers[fingerNum];
     }
 
-    /*
-    private void GetStateFromArduino()
-    {
-        byte[] buffer = new byte[16];
-        sp.Read(buffer, 0, 15);
 
-        for (int i = 0; i < 5; i++)
-        {
-            fingers[i] = (FingerState)buffer[i]; //0또는 1 또는 2 전송
-        }
-    }*/
+    //private void GetStateFromArduino()
+    //{
+    //    if (sp == null)
+    //        return;
+
+    //    byte[] buffer = new byte[16];
+    //    sp.Read(buffer, 0, 15);
+
+    //    for (int i = 0; i < 5; i++)
+    //    {
+    //        fingers[i] = (FingerState)buffer[i]; //0또는 1 또는 2 전송
+    //    }
+    //}
 
     private void GetStateFromKeyboard()
     {
@@ -98,8 +114,8 @@ public class GlovInput : MonoBehaviour
 
     }
 
-    private void OnDestroy()
-    {
-        //sp.Close();
-    }
+    //private void OnDestroy()
+    //{
+    //    sp.Close();
+    //}
 }

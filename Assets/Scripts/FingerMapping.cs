@@ -19,6 +19,7 @@ public class FingerMapping : MonoBehaviour
     {
         GlovInput.FingerState state = GlovInput.instance.GetOneFingerState(fingerNum);
 
+        //상태가 변할 때만 회전
         if(beforeState == state)
         {
             return;
@@ -44,4 +45,5 @@ public class FingerMapping : MonoBehaviour
                 break;
         }
     }
+
 }
